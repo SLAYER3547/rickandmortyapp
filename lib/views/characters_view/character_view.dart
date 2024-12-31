@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/views/characters_view/character_viewmodel.dart';
-import 'package:rickandmortyapp/views/widgets/character_card_view.dart';
+import 'package:rickandmortyapp/views/widgets/character_card_listview.dart';
 
 class CharacterView extends StatefulWidget {
   const CharacterView({super.key});
@@ -31,16 +31,10 @@ class _CharacterViewState extends State<CharacterView> {
                   if (viewModel.charactersModel == null) {
                     return const CircularProgressIndicator.adaptive();
                   } else {
-                    return Expanded(
-                      child: ListView.builder(
-                          itemCount: viewModel.charactersModel!.characters.length,
-                          itemBuilder: (context, index) {
-                            final characterModel =
-                                viewModel.charactersModel!.characters[index];
-                            return CharacterCardView(
-                                characterModel: characterModel);
-                          }),
-                    );
+                    return CharacterCardListview(
+                        characters: viewModel.charactersModel!.characters,
+                        onLoadMore: () => viewModel.getCharactersMore()
+                        );
                   }
                 },
               )
