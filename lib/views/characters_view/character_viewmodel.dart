@@ -14,12 +14,18 @@ class CharacterViewmodel extends ChangeNotifier {
   }
 
   bool loadMore = false;
+
+  void setLoadMore(bool value) {
+    loadMore = value;
+    notifyListeners();
+  }
+
   void getCharactersMore() async {
     if (loadMore) return;
-    loadMore = true;
+    setLoadMore(true);
     final data =
         await _apiService.getAllCharacters(url: charactersModel?.info.next);
-    loadMore = false;
+    setLoadMore(false);
     _characterModel!.info = data.info;
     _characterModel!.characters.addAll(data.characters);
     notifyListeners();

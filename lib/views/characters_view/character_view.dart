@@ -33,7 +33,8 @@ class _CharacterViewState extends State<CharacterView> {
                   } else {
                     return CharacterCardListview(
                         characters: viewModel.charactersModel!.characters,
-                        onLoadMore: () => viewModel.getCharactersMore()
+                        onLoadMore: () => viewModel.getCharactersMore(),
+                        loadMore: viewModel.loadMore,
                         );
                   }
                 },

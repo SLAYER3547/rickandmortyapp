@@ -5,8 +5,12 @@ import 'package:rickandmortyapp/views/widgets/character_card_view.dart';
 class CharacterCardListview extends StatefulWidget {
   final List<CharacterModel> characters;
   final VoidCallback onLoadMore;
+  final bool loadMore;
   const CharacterCardListview(
-      {super.key, required this.characters, required this.onLoadMore});
+      {super.key,
+      required this.characters,
+      required this.onLoadMore,
+      this.loadMore = false});
 
   @override
   State<CharacterCardListview> createState() => _CharacterCardListviewState();
@@ -40,7 +44,13 @@ class _CharacterCardListviewState extends State<CharacterCardListview> {
           itemCount: widget.characters.length,
           itemBuilder: (context, index) {
             final characterModel = widget.characters[index];
-            return CharacterCardView(characterModel: characterModel);
+            return Column(
+              children: [
+                CharacterCardView(characterModel: characterModel),
+                if(widget.loadMore && index == widget.characters.length - 1)
+                  const CircularProgressIndicator.adaptive()
+              ],
+            );
           }),
     );
   }
